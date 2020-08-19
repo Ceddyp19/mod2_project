@@ -1,57 +1,73 @@
 class RecipesController < ApplicationController
-    
+    before_action :get_recipe, only: [:show, :edit, :destroy ]
+
     def index
+        @recipes = Recipe.all
     end 
+
+    # def showexit
+    # end
 
     def new
         @recipe = Recipe.new
         @recipe.ingredients.build
     end
-
-    def create
-        @recipe = Recipe.new(recipe_params)
-        #byebug
-        if @recipe.save
-            redirect_to recipe_path(@recipe)
-        else
-            render :new
-        end
-    end
-
-    # if recipe_params[:add_ingredient]
-    #     @recipe.ingredients.build
-    # else
+####################Original
+    # def create
+    #     @recipe = Recipe.new(recipe_params)
+    #     #byebug
     #     if @recipe.save
     #         redirect_to recipe_path(@recipe)
     #     else
     #         render :new
     #     end
     # end
+#######################
+    def create
+        @recipe = Recipe.new(recipe_params)
+        if params[:add_ingredient]
+        # add empty ingredient associated with @recipe
+        @recipe.ingredients.build
+        elsif params[:remove_ingredient]
+        # nested model that have _destroy attribute = 1 automatically deleted by rails
+    
+        else
+            if @recipe.save
+                flash[:notice] = "Successfully created recipe."
+                redirect_to recipe_path(@recipe) and return
+            end
+        end
+        render :new
+    end
 
-    # def create
-    #     @recipe = Recipe.new(params[:recipe])
-    #     if recipe_params[:add_ingredient]
-    #       # add empty ingredient associated with @recipe
-    #       @recipe.ingredients.build
-    #     elsif params[:remove_ingredient]
-    #       # nested model that have _destroy attribute = 1 automatically deleted by rails
-    #     else
-    #       # save goes like usual
-    #       if @recipe.save
-    #         flash[:notice] = "Successfully created recipe."
-    #         redirect_to @recipe and return
-    #       end
-    #     end
+
+    def edit
+    end
 
     def update
+    end
+
+    def destroy 
+        @recipe.destroy
+        flash[:notice] = "Successfully destroyed recipe."
+        redirect_to recipes_path 
     end
 
     private
     
      def recipe_params
-        params.require(:recipe).permit(:name, :description, :prep_time, :style_id, :add_ingredient, ingredients_attributes: [
+        params.require(:recipe).permit(:name, :calories, :description, :prep_time, :style_id, :add_ingredient, :remove_ingredient, ingredients_attributes: [
             :name,
-            :category
+            :category,
+            :_destroy
           ])
      end
+
+     def get_recipe
+        @recipe = Recipe.find_by(params[:id])
+     end
 end
+
+
+
+

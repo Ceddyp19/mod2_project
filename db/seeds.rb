@@ -6,9 +6,9 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Recipe.create(name:'Krabby Patty Formula', calories: 500, prep_time: '35 min.' description:'The best burgers in all of Bikini Bottom! Chum Bucket is trash..' )
-Recipe.create(name:'Spasagna', calories: 1200, prep_time: '1.5 hours' description:'The best of both worlds!!' )
-Recipe.create(name:'Fried Rice', calories: 345, prep_time: '40 min' description:'A China town classic' )
+Recipe.create(name:'Krabby Patty Formula', calories: 500, prep_time: '35 min.', description:'The best burgers in all of Bikini Bottom! Chum Bucket is trash..' )
+Recipe.create(name:'Spasagna', calories: 1200, prep_time: '1.5 hours', description:'The best of both worlds!!' )
+Recipe.create(name:'Fried Rice', calories: 345, prep_time: '40 min', description:'A China town classic' )
 
 
 Ingredient.create(name: "Ground Krabs", category: "Seafood")
