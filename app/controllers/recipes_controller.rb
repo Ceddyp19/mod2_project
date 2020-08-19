@@ -34,7 +34,8 @@ class RecipesController < ApplicationController
         else
             if @recipe.save
                 flash[:notice] = "Successfully created recipe."
-                redirect_to recipe_path(@recipe) and return
+                return redirect_to recipe_path(@recipe) #and return
+                #byebug 
             end
         end
         render :new
@@ -46,6 +47,10 @@ class RecipesController < ApplicationController
 
     def update
     end
+
+    def show
+        #@recipe = Recipe.find(params[:id])
+    end 
 
     def destroy 
         @recipe.destroy
@@ -64,7 +69,7 @@ class RecipesController < ApplicationController
      end
 
      def get_recipe
-        @recipe = Recipe.find_by(params[:id])
+        @recipe = Recipe.find(params[:id])
      end
 end
 
