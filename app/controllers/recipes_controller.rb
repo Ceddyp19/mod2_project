@@ -1,5 +1,6 @@
 class RecipesController < ApplicationController
     before_action :get_recipe, only: [:show, :edit, :destroy ]
+    before_action :require_login
 
     def index
         @recipes = Recipe.all
@@ -32,7 +33,8 @@ class RecipesController < ApplicationController
         # nested model that have _destroy attribute = 1 automatically deleted by rails
     
         else
-            if @recipe.save
+            if @recipe.valid?
+                @recipe.save
                 flash[:notice] = "Successfully created recipe."
                 return redirect_to recipe_path(@recipe) #and return
                 #byebug 
@@ -65,45 +67,15 @@ class RecipesController < ApplicationController
                 @recipe.ingredients.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
             end
         else
-            if @recipe.update_attributes(recipe_params)
+            if @recipe.valid? 
+                @recipe.update_attributes(recipe_params)
                 flash[:notice] = "Successfully updated recipe."
                 return redirect_to recipe_path(@recipe)
             end
         end
         render :edit       
     end
-###############################Copied code below#########
-# def update
-#     @recipe = Recipe.find(params[:id])
-#     if params[:add_ingredient]
-#     	# rebuild the ingredient attributes that doesn't have an id
-#     	unless params[:recipe][:ingredients_attributes].blank?
-# 	  for attribute in params[:recipe][:ingredients_attributes]
-# 	    @recipe.ingredients.build(attribute.last.except(:_destroy)) unless attribute.last.has_key?(:id)
-# 	  end
-#     	end
-#       # add one more empty ingredient attribute
-#       @recipe.ingredients.build
-#     elsif params[:remove_ingredient]
-#       # collect all marked for delete ingredient ids
-#       removed_ingredients = params[:recipe][:ingredients_attributes].collect { |i, att| att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
-#       # physically delete the ingredients from database
-#       Ingredient.delete(removed_ingredients)
-#       flash[:notice] = "Ingredients removed."
-#       for attribute in params[:recipe][:ingredients_attributes]
-#       	# rebuild ingredients attributes that doesn't have an id and its _destroy attribute is not 1
-# #         @recipe.ingredients.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
-#       end
-#     else
-#       # save goes like usual
-#       if @recipe.update_attributes(params[:recipe])
-#         flash[:notice] = "Successfully updated recipe."
-#         redirect_to @recipe and return
-#       end
-#     end
-#     render :action => 'edit'
-#   end  
-######################################
+
     def show
         #@recipe = Recipe.find(params[:id])
     end 
@@ -128,6 +100,8 @@ class RecipesController < ApplicationController
      def get_recipe
         @recipe = Recipe.find(params[:id])
      end
+
+     
 end
 
 

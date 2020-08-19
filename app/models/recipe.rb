@@ -4,6 +4,43 @@ class Recipe < ApplicationRecord
     has_many :items
     has_many :ingredients, through: :items
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
+    validates :name, presence: true
+    validates :name, uniqueness: true
+    validates :style, presence: true 
+    validates :prep_time, presence:true
+    validates :description, length: {minimum: 20}
+
+
+    def average_calories
+    end
+
+    def average_rating
+    end
+
+    def average_prep_time
+    end
+
+    def total_recipes
+    end
+
+    def total_dish_styles
+    end
+
+    def all_vegan_dishes
+    end
+
+    def count_favorited
+    end
+
+    def total_number_of_users
+    end
+
+    def recipe_creator
+    end
+
+    def most_favorited_style
+    end
+
 
     # def ingredients_attributes=(ingredient_attributes)
     #     ingredient_attributes.values.each do |ingredient_attribute|
@@ -24,4 +61,5 @@ class Recipe < ApplicationRecord
     #     end
     #     @@styles 
     # end
+    
 end
