@@ -6,14 +6,14 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
-Recipe.create(name:'Krabby Patty Formula', calories: 500, prep_time: '35 min.', description:'The best burgers in all of Bikini Bottom! Chum Bucket is trash..' )
-Recipe.create(name:'Spasagna', calories: 1200, prep_time: '1.5 hours', description:'The best of both worlds!!' )
-Recipe.create(name:'Fried Rice', calories: 345, prep_time: '40 min', description:'A China town classic' )
+# Recipe.create(name:'Krabby Patty Formula', calories: 500, prep_time: '35 min.', description:'The best burgers in all of Bikini Bottom! Chum Bucket is trash..' )
+# Recipe.create(name:'Spasagna', calories: 1200, prep_time: '1.5 hours', description:'The best of both worlds!!' )
+# Recipe.create(name:'Fried Rice', calories: 345, prep_time: '40 min', description:'A China town classic' )
 
 
-Ingredient.create(name: "Ground Krabs", category: "Seafood")
-Ingredient.create(name: "Tomato", category: "Fruit")
-Ingredient.create(name: "Rice", category: "Grain")
+# Ingredient.create(name: "Ground Krabs", category: "Seafood")
+# Ingredient.create(name: "Tomato", category: "Fruit")
+# Ingredient.create(name: "Rice", category: "Grain")
 
 a = %w(African American Bakery Barbeque Brunch Cajun Chinese Cuban Dessert Ethiopian Fast Food German Greek Halal Hawaiian Indian Italian Jamaican Japanese Korean Kosher Latin American Lebanese Mediterranean Mexican Mongolian Moroccan Peruvian Polish Seafood Southern Southwestern Spanish Thai Vegan Vegetarian Vietnamese)
 a.each do |s|
