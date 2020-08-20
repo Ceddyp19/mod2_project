@@ -25,6 +25,7 @@ class RecipesController < ApplicationController
     # end
 #######################
     def create
+        @user = current_user
         @recipe = Recipe.new(recipe_params)
         if params[:add_ingredient]
         # add empty ingredient associated with @recipe
@@ -35,6 +36,7 @@ class RecipesController < ApplicationController
         else
             if @recipe.valid?
                 @recipe.save
+                @user.recipes << @recipe
                 flash[:notice] = "Successfully created recipe."
                 return redirect_to recipe_path(@recipe) #and return
                 #byebug 
@@ -82,7 +84,7 @@ class RecipesController < ApplicationController
 
     def destroy 
         @recipe.destroy
-        flash[:notice] = "Successfully destroyed recipe."
+        flash[:notice] = "Successfully deleted recipe."
         redirect_to recipes_path 
     end
 

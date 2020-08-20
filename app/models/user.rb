@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-    has_and_belongs_to_many :recipes
+    has_many :recipes_users
+    has_many :recipes, through: :recipes_users
     has_secure_password
     validate :password
     # validates :password_digest, length:{ minimum: 8 }

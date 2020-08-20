@@ -1,6 +1,7 @@
 class Recipe < ApplicationRecord
     belongs_to :style
-    has_and_belongs_to_many :users
+    has_many :recipes_users
+    has_many :users, through: :recipes_users
     has_many :items
     has_many :ingredients, through: :items
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
@@ -9,6 +10,7 @@ class Recipe < ApplicationRecord
     validates :style, presence: true 
     validates :prep_time, presence:true
     validates :description, length: {minimum: 20}
+    validates_associated :ingredients
 
 
     def average_calories
