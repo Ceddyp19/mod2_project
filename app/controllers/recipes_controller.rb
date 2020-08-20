@@ -96,7 +96,8 @@ class RecipesController < ApplicationController
             :category,
             :id,
             :_destroy
-          ])
+          ],
+          items_attributes:[:quantity, :recipe_id, :ingredinet_id])
      end
 
      def get_recipe
