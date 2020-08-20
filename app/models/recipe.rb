@@ -5,9 +5,10 @@ class Recipe < ApplicationRecord
     has_many :ingredients, through: :items
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
     validates :name, presence: true
-    validates :name, uniqueness: true
-    validates :style, presence: true 
+    validates :name, uniqueness: { case_sensitive: true }
+    validates :style, presence: { case_sensitive: true }
     validates :prep_time, presence:true
+    validates :prep_time, inclusion: (in: %w(min), message: "Prep time must be in specified in minutes (min)" )
     validates :description, length: {minimum: 20}
 
 
@@ -28,18 +29,13 @@ class Recipe < ApplicationRecord
 
     def self.average_prep_time
         prep = self.all.collect do |recipe|
-                    recipe.prep_time.split('min').to_i
+                    recipe.prep_time.split('min')
                 end
-        # prep.keep_if {|n| n =~ /[0..9]/}
-        byebug
-        prep = prep.collect
-        byebug
-        prep = prep.split("min")
-        byebug
-        tpt = prep.sum
-        ans = tpt / total_recipes
+                #prep looks like: [["35 "], ["90 "], ["40 "]] 
+        prep = prep.join.split
+               #now prep looks like: ["35", "90", "40"] 
 
-        # a.keep_if {|v| v =~ /[aeiou]/ }
+        prep.sum { |n| n.to_i } # turns each number to string then adds them together 
     end
 
     def self.total_recipes
@@ -47,11 +43,41 @@ class Recipe < ApplicationRecord
     end
 
 
-    def all_vegan_dishes
+    def self.all_vegan_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 37
+                dish.name
+            end
+        end.compact
     end
 
-    def count_favorited
+    def self.all_vegetarian_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 38
+                dish.name
+            end
+        end.compact
     end
+
+    def self.all_rice_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 3
+                dish.name
+            end
+        end.compact
+        rice = Ingredient.find_by(name:'Rice')
+        rice_dishes = Item.where(ingredient_id: 3) #return all rice dishes
+    end
+
+    def self.all_chicken_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 
+                dish.name
+            end
+        end.compact
+    end
+
+
 
     def total_number_of_users
     end

@@ -27,7 +27,8 @@ class User < ApplicationRecord
     def self.created_recipes
     end
 
-    
+    def self.count_favorited
+    end
 end
 
 
