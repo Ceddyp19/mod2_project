@@ -3,6 +3,9 @@ class WelcomeController < ApplicationController
     def home
     end
 
+    def about 
+    end
+
     def user_home
     end
 end

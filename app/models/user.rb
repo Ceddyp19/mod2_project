@@ -20,6 +20,14 @@ class User < ApplicationRecord
         #     errors.add(:password, "must contain numbers")
         end
     end
+
+    def self.favorited_recipes
+    end
+
+    def self.created_recipes
+    end
+
+    
 end
 
 

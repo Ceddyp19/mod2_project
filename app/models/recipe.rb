@@ -11,20 +11,41 @@ class Recipe < ApplicationRecord
     validates :description, length: {minimum: 20}
 
 
-    def average_calories
+    def self.average_calories
+        cal =   self.all.collect do |recipe|
+                    recipe.calories
+                end
+                
+        tc = cal.sum 
+        tr = Recipe.all.count
+
+        ans = tc / total_recipes
+        ans
     end
 
-    def average_rating
+    def self.average_rating
     end
 
-    def average_prep_time
+    def self.average_prep_time
+        prep = self.all.collect do |recipe|
+                    recipe.prep_time.split('min').to_i
+                end
+        # prep.keep_if {|n| n =~ /[0..9]/}
+        byebug
+        prep = prep.collect
+        byebug
+        prep = prep.split("min")
+        byebug
+        tpt = prep.sum
+        ans = tpt / total_recipes
+
+        # a.keep_if {|v| v =~ /[aeiou]/ }
     end
 
-    def total_recipes
+    def self.total_recipes
+        self.all.count 
     end
 
-    def total_dish_styles
-    end
 
     def all_vegan_dishes
     end
