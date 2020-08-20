@@ -4,13 +4,15 @@ class Recipe < ApplicationRecord
     has_many :items
     has_many :ingredients, through: :items
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
+    
     validates :name, presence: true
     validates :name, uniqueness: { case_sensitive: true }
     validates :style, presence: { case_sensitive: true }
     validates :prep_time, presence:true
-    validates :prep_time, inclusion: (in: %w(min), message: "Prep time must be in specified in minutes (min)" )
+    # validates :prep_time, inclusion: {in: %w( min ), message: "Prep time must be in specified in minutes (min)" }
     validates :description, length: {minimum: 20}
-
+    validates :rating, numericality: { only_integer: true }
+    validates_numericality_of :rating, less_than_or_equal_to: 10
 
     def self.average_calories
         cal =   self.all.collect do |recipe|
@@ -19,12 +21,19 @@ class Recipe < ApplicationRecord
                 
         tc = cal.sum 
         tr = Recipe.all.count
-
-        ans = tc / total_recipes
+        ans = (tc / tr)
         ans
     end
 
     def self.average_rating
+        rat = self.all.collect do |recipe|
+                recipe.rating
+              end
+        
+        ar = rat.sum 
+        tr = Recipe.all.count
+        ans = (ar / tr)
+        ans
     end
 
     def self.average_prep_time
@@ -38,22 +47,25 @@ class Recipe < ApplicationRecord
         prep.sum { |n| n.to_i } # turns each number to string then adds them together 
     end
 
-    def self.total_recipes
+    def self.all_recipes
         self.all.count 
     end
 
 
     def self.all_vegan_dishes
         self.all.collect do |dish|
-            if dish.style_id == 37
+            byebug
+            if dish.style_id == Style.where(name: 'Vegan').ids
                 dish.name
+
+                byebug
             end
         end.compact
     end
 
     def self.all_vegetarian_dishes
         self.all.collect do |dish|
-            if dish.style_id == 38
+            if dish.style_id == Style.where(name: 'Vegetarian').ids
                 dish.name
             end
         end.compact
@@ -61,7 +73,7 @@ class Recipe < ApplicationRecord
 
     def self.all_rice_dishes
         self.all.collect do |dish|
-            if dish.style_id == 3
+            if dish.style_id == Style.where(name: 'Rice').ids
                 dish.name
             end
         end.compact
@@ -70,6 +82,14 @@ class Recipe < ApplicationRecord
     end
 
     def self.all_chicken_dishes
+        self.all.collect do |dish|
+            if dish.style_id == Style.where(name: 'Chicken').ids
+                dish.name
+            end
+        end.compact
+    end
+
+    def self.all_pasta_dishes
         self.all.collect do |dish|
             if dish.style_id == 
                 dish.name

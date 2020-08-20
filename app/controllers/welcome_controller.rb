@@ -8,5 +8,8 @@ class WelcomeController < ApplicationController
 
     def user_home
     end
+
+    def analytics
+    end
 end
 

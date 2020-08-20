@@ -3,5 +3,10 @@ class QuizController < ApplicationController
     end
 
     def play
+        
     end
+
+    def test
+    end
+
 end

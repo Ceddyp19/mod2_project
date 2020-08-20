@@ -9,6 +9,8 @@ Rails.application.routes.draw do
   post '/logout' => 'sessions#destroy' 
   root 'welcome#home'
   get '/about', to: 'welcome#about'
+  get '/analytics', to: 'welcome#analytics'
   get '/quiz', to: 'quiz#intro'
   get '/quiz/play', to: 'quiz#play'
+  get '/quiz/test', to: 'quiz#test'
 end
