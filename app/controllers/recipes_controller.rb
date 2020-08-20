@@ -67,9 +67,9 @@ class RecipesController < ApplicationController
             recipe_params[:ingredients_attributes].each { |i, att| removed_ingredients << att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
             Ingredient.delete(removed_ingredients)
             flash[:notice] = "Ingredients removed."
-            for attribute in params[:recipe][:ingredients_attributes]
-                @recipe.ingredients.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
-            end
+            #for attribute in params[:recipe][:ingredients_attributes]
+             #   @recipe.ingredients.build(attribute.last.except(:_destroy)) if (!attribute.last.has_key?(:id) && attribute.last[:_destroy].to_i == 0)
+            #end
         else
             if @recipe.valid? 
                 @recipe.update_attributes(recipe_params)

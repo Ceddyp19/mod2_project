@@ -19,13 +19,20 @@ class Recipe < ApplicationRecord
             self.ingredients << ing unless self.ingredients.include?(ing)
             ingredient_attribute[:items_attributes].values.each do |item_attribute|
                 #byebug
-                if self.items.any?  do |item|
-                    item.recipe_id == self.id 
+                if self.items.any?
+                    self.items.each do |item|
+                        item.recipe_id == self.id && item.ingredient_id == ing.id
+                    end
+                    item = self.items.select {|i| i.ingredient_id == ing.id && i.recipe_id == self.id}
+                    nu_item = item.first
+                    nu_item.quantity = item_attribute unless item_attribute.blank?
+                    nu_item.save
+                else
+                    item = self.items.select {|i| i.ingredient_id == ing.id }
+                    nu_item = item.first 
+                    nu_item.quantity = item_attribute unless item_attribute.blank?
+                    nu_item.save
                 end
-                item = self.items.select {|i| i.ingredient.id == ing.id && i.recipe.id == self.id}
-                nu_item = item.first
-                nu_item.quantity = item_attribute
-                nu_item.save
             end
         end
     end
@@ -114,4 +121,3 @@ class Recipe < ApplicationRecord
     # end
 end
 
-end
