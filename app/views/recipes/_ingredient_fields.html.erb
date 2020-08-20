@@ -6,5 +6,5 @@
 <%= f.fields_for :items_attributes do |item_a|  %>
         <%= render 'item_attr', :f => item_a, partial: 'item_attr' %>
 <% end %>
-<%= link_to_remove_association "remove ingredient", f %>
+<%= link_to_remove_association "remove ingredient", f %><br><br><br>
 </div>
