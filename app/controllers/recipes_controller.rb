@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-    before_action :get_recipe, only: [:show, :edit, :destroy ]
+    before_action :get_recipe, only: [:show, :edit, :update, :destroy ]
     before_action :require_login
 
     def index
@@ -49,11 +49,9 @@ class RecipesController < ApplicationController
 
 
     def edit
-        @recipe = Recipe.find(params[:id])
     end
 
     def update
-        @recipe = Recipe.find(params[:id])
         if params[:add_ingredient]
             unless params[:recipe][:ingredients_arrtibutes].blank?
                 for attribute in params[:recipe][:ingredients_attributes]
@@ -82,7 +80,6 @@ class RecipesController < ApplicationController
     end
 
     def show
-        #@recipe = Recipe.find(params[:id])
     end 
 
     def destroy 
@@ -101,7 +98,8 @@ class RecipesController < ApplicationController
             :calories, 
             :description, 
             :prep_time, 
-            :style_id,  
+            :style_id, 
+            :type, 
             :add_ingredient, 
             :remove_ingredient, 
             ingredients_attributes: [

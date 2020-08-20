@@ -2,10 +2,12 @@ class Recipe < ApplicationRecord
     belongs_to :style
     has_many :recipes_users
     has_many :users, through: :recipes_users
+    has_many :favorite_recipes
+    has_many :users, through: :favorite_recipes
     has_many :items
     has_many :ingredients, through: :items
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
-    #accepts_nested_attributes_for :items
+    
     validates :name, presence: true
     validates :name, uniqueness: true
     validates :style, presence: true 
