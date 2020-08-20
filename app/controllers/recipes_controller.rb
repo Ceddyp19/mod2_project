@@ -1,5 +1,5 @@
 class RecipesController < ApplicationController
-    before_action :get_recipe, only: [:show, :edit, :update, :destroy ]
+    before_action :get_recipe, only: [:show, :edit, :update, :favorite, :destroy ]
     before_action :require_login
 
     def index
@@ -79,6 +79,19 @@ class RecipesController < ApplicationController
         render :edit       
     end
 
+    def favorite 
+        fave = params[:fave]
+        if fave == "favorite"
+            current_user.fav_recipes << @recipe
+            flash[:notice] = "Added to favorites!"
+            redirect_to recipe_path(@recipe)
+        elsif fave == "unfavorite"
+            current_user.fav_recipes.delete(@recipe)
+            flash[:notice] = "Removed from favorites"
+            redirect_to recipe_path(@recipe)
+        end
+    end
+
     def show
     end 
 
@@ -88,6 +101,7 @@ class RecipesController < ApplicationController
         flash[:notice] = "Successfully deleted recipe."
         redirect_to recipes_path 
     end
+
 
     private
     
@@ -99,7 +113,7 @@ class RecipesController < ApplicationController
             :description, 
             :prep_time, 
             :style_id, 
-            :type, 
+            :fave, 
             :add_ingredient, 
             :remove_ingredient, 
             ingredients_attributes: [

@@ -42,6 +42,6 @@ class Recipe < ApplicationRecord
         end
     end
     
- 
+    
 end
 
