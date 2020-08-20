@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   resources :recipes
-  resources :ingredients 
-  resources :items
-  resources :users, only: [:new, :create]
+  # resources :ingredients 
+  # resources :items
+  resources :sessions, only: [:new, :create]
+  resources :users
+  
   get '/user_home', to: 'welcome#user_home'
-  get '/login', to: 'sessions#new'
+
+  get '/signup', to: 'users#new', as: 'signup'
+  get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
-  post '/logout' => 'sessions#destroy' 
+  post '/logout' => 'sessions#destroy', as: 'logout' 
+  
   root 'welcome#home'
 
 end

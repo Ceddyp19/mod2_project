@@ -1,6 +1,8 @@
-<%= form_for :user, url: '/users' do |f| %>
-  Email: <%= f.text_field :email %>
-  Password: <%= f.password_field :password %>
-  Password Confirmation: <%= f.password_field :password_confirmation %>
+<div class="login_form">
+<%= form_for :session, url: login_path do |f| %>
+  Email: <%= f.text_field :email %><br>
+  Password: <%= f.password_field :password %><br>
+  Confirm password: <%= f.password_field :password_confirmation %><br>
   <%= f.submit "Submit" %>
 <% end %>
+</div>

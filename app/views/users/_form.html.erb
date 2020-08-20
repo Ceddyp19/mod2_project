@@ -1,3 +1,4 @@
+<div class="login_form">
 <%= form_for :user, url: '/users' do |f| %>
 <% if @user.errors.any? %>
   <div id="error_explanation">
@@ -16,7 +17,7 @@
 <div>
   Email: <%= f.text_field :email %><br>
   Password: <%= f.password_field :password %><br>
-  Password Confirmation: <%= f.password_field :password_confirmation %><br>
+  Confirm password: <%= f.password_field :password_confirmation %><br>
   <%= f.submit "Submit" %>
 <% end %>
 </div>

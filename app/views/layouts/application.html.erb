@@ -11,22 +11,35 @@
 
   <body>
   <div align="center">
+  <% if logged_in? %>
+  <a class="menu" id="menu-link" href="/user_home">
+  Home
+  </a>
+  <% else %>
   <a class="menu" id="menu-link" href="/">
   Home
   </a>
+<% end %>
+
   <a class="menu" id="menu-link" href="/recipes">
    
   Recipes
   </a>
+  <% if !logged_in? %>
   <a class="menu" id="menu-link" href="/login">
    
   Login
   </a>
+ 
   <a class="menu" id="menu-link" href="/users/new">
    
   Sign Up
   </a>
+   <% end %>
   </div>
+  <% flash.each do |key, value| %>
+    <div class="flash <%= key %>"><%= value %></div>
+<% end %>
     <%= yield %>
   </body>
 </html>
