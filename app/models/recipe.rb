@@ -13,36 +13,84 @@ class Recipe < ApplicationRecord
     validates :description, length: {minimum: 20}
     validates_associated :ingredients
 
-
-    def average_calories
+    def ingredients_attributes=(ingredient_attributes)
+        ingredient_attributes.values.each do |ingredient_attribute|
+            ing = Ingredient.find_or_create_by(name: ingredient_attribute["name"], category: ingredient_attribute["category"])
+            self.ingredients << ing unless self.ingredients.include?(ing)
+            ingredient_attribute[:items_attributes].values.each do |item_attribute|
+                #byebug
+                if self.items.any?  do |item|
+                    item.recipe_id == self.id 
+                end
+                item = self.items.select {|i| i.ingredient.id == ing.id && i.recipe.id == self.id}
+                nu_item = item.first
+                nu_item.quantity = item_attribute
+                nu_item.save
+            end
+        end
     end
+    
+    # def ingredients_attributes=(ingredient_attributes)
 
-    def average_rating
-    end
+    #     ingredient_attributes.values.each do |ingredient_attribute|
+    #       #byebug
+    #       if ingredient_attribute[:_destroy] == '1'
+    #         ingredient = Ingredient.find_or_create_by(name: ingredient_attribute['name'])
+    #         ingredient.delete
+    #       else
+    #         ingredient = Ingredient.find_or_create_by(name: ingredient_attribute['name'])
+    #         self.ingredients << ingredient unless self.ingredients.include?(ingredient)
+    #       end
+    #       ingredient_attribute[:items_attributes].values.each do |item_attribute|
+    #         #byebug
+    #         if self.items.any? do |item|
+    #             item.recipe_id == self.id && item.ingredient_id == ingredient.id
+    #           end
+    #           item = self.items.select do |i|
+    #             i.ingredient_id == ingredient.id && i.recipe_id == self.id
+    #           end.first
+    #           item.quantity = item_attribute unless item_attribute.blank?
+    #           item.save
+    #         else
+    #           item = self.items.select {|i| i.ingredient_id == ingredient.id}.first
+    #           item.quantity = item_attribute unless item_attribute.blank?
+    #           item.save
+    #         end
+    #       end
+    #     end
+    
+    # end
 
-    def average_prep_time
-    end
 
-    def total_recipes
-    end
+    # def average_calories
+    # end
 
-    def total_dish_styles
-    end
+    # def average_rating
+    # end
 
-    def all_vegan_dishes
-    end
+    # def average_prep_time
+    # end
 
-    def count_favorited
-    end
+    # def total_recipes
+    # end
 
-    def total_number_of_users
-    end
+    # def total_dish_styles
+    # end
 
-    def recipe_creator
-    end
+    # def all_vegan_dishes
+    # end
 
-    def most_favorited_style
-    end
+    # def count_favorited
+    # end
+
+    # def total_number_of_users
+    # end
+
+    # def recipe_creator
+    # end
+
+    # def most_favorited_style
+    # end
 
 
     # def ingredients_attributes=(ingredient_attributes)
@@ -64,5 +112,6 @@ class Recipe < ApplicationRecord
     #     end
     #     @@styles 
     # end
-    
+end
+
 end

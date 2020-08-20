@@ -26,6 +26,7 @@ class RecipesController < ApplicationController
 #######################
     def create
         @user = current_user
+        #byebug
         @recipe = Recipe.new(recipe_params)
         if params[:add_ingredient]
         # add empty ingredient associated with @recipe
@@ -35,6 +36,7 @@ class RecipesController < ApplicationController
     
         else
             if @recipe.valid?
+                #byebug
                 @recipe.save
                 @user.recipes << @recipe
                 flash[:notice] = "Successfully created recipe."
@@ -72,6 +74,7 @@ class RecipesController < ApplicationController
             if @recipe.valid? 
                 @recipe.update_attributes(recipe_params)
                 flash[:notice] = "Successfully updated recipe."
+                #byebug
                 return redirect_to recipe_path(@recipe)
             end
         end
@@ -91,13 +94,21 @@ class RecipesController < ApplicationController
     private
     
      def recipe_params
-        params.require(:recipe).permit(:name, :calories, :description, :prep_time, :style_id, :add_ingredient, :remove_ingredient, ingredients_attributes: [
+        params.require(:recipe).permit(
+            :id, 
+            :name, 
+            :calories, 
+            :description, 
+            :prep_time, 
+            :style_id,  
+            :add_ingredient, 
+            :remove_ingredient, 
+            ingredients_attributes: [
             :name,
             :category,
             :id,
-            :_destroy
-          ],
-          items_attributes:[:quantity, :recipe_id, :ingredinet_id])
+            :_destroy,
+            items_attributes: [:id, :quantity, :recipe_id, :ingredient_id, :_destroy]])
      end
 
      def get_recipe

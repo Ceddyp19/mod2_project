@@ -13,6 +13,8 @@
     <li>Name: <%= ing.name %> </li>
     <ul>
     <li>Category: <%= ing.category %></li>
+    <li>Quantity: <%= @recipe.items.find_by(ingredient: ing).quantity %></li>
+    <% #byebug %>
     </ul>
 <% end %>
 </ul>

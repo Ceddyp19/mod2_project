@@ -4,7 +4,7 @@
   <div id="error_explanation">
     <h2>
       <%= pluralize(@recipe.errors.count, "error") %>
-      prohibited this post from being saved:
+      kept this post from being saved:
     </h2>
  
     <ul>
@@ -37,7 +37,10 @@
     <%= ingred.text_field :name %><br>
     <%= ingred.label :category %><br>
     <%= ingred.text_field :category %><br>
-   
+    <%= ingred.fields_for :items_attributes do |item_a|  %>
+        <%= item_a.label :quantity %><br>
+        <%= item_a.text_field :quantity %><br>
+    <% end %>
     <%= ingred.check_box :_destroy %>
     <%= ingred.label :_destroy, 'delete' %><br>
 <% end %>
