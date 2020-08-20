@@ -1,0 +1,10 @@
+<div class='nested-fields'>
+<%= f.label :name %><br>
+<%= f.text_field :name %><br>
+<%= f.label :category %><br>
+<%= f.text_field :category %><br>
+<%= f.fields_for :items_attributes do |item_a|  %>
+        <%= render 'item_attr', :f => item_a, partial: 'item_attr' %>
+<% end %>
+<%= link_to_remove_association "remove ingredient", f %>
+</div>
