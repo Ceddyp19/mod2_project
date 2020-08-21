@@ -20,5 +20,5 @@ Rails.application.routes.draw do
   get '/analytics', to: 'welcome#analytics'
   get '/quiz', to: 'quiz#intro'
   get '/quiz/play', to: 'quiz#play'
-  get '/quiz/test', to: 'quiz#test'
+  get '/quiz', to: 'quiz#intro'
 end

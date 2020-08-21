@@ -1,33 +1,59 @@
 <h1><%= @recipe.name %></h1>
-<h3>Calories</h3>
-<%= @recipe.calories %>
-<h3>Prep Time</h3>
-<%= @recipe.prep_time %>
-<h3>Description</h3>
-<%= @recipe.description %>
-<h3>Dish Style</h3>
-<%= @recipe.style.name %>
-<h3>Ingredients</h3>
-<ul>
+<div align="center">
+<h6>submitted by: <%= @recipe.users.first.email %></h6>
+<h5>Calories</h5>
+<%= @recipe.calories %><br><br>
+<h5>Prep Time</h5>
+<%= @recipe.prep_time %><br><br>
+<h5>Description</h5>
+<%= @recipe.description %><br><br>
+<h5>Dish Style</h5><br><br>
+<%= @recipe.style.name %><br><br>
+</div>
+<div align="center" style="padding: 50px;">
+<h5>Ingredients</h5>
+<table style="text-align: center;">
+
+<table>
+<tr><th>ingredient</th><th>amount</th><th>type</th></tr>
 <% @recipe.ingredients.each do |ing| %>
-    <li>Name: <%= ing.name %> </li>
-    <ul>
-    <li>Category: <%= ing.category %></li>
-    <li>Quantity: <%= @recipe.items.find_by(ingredient: ing).quantity %></li>
+    <tr><td><%= ing.name %></td>
+    
+    <td><%= @recipe.items.find_by(ingredient: ing).quantity %></td>
+    <td><%= ing.category %></td></tr>
+    
     <% #byebug %>
-    </ul>
+    
 <% end %>
-</ul>
+</table>
+</div>
 <br>
 <br>
+<table>
+<tr><th>
+<div id="edit_button">
+<%= button_to "Edit Recipe", edit_recipe_path(@recipe), :method => :get, :class => "button-clear" %>
+</div>
+</th>
+<th>
+<div id="delete_button">
+<%= button_to "Delete Recipe", recipe_path(@recipe), :method => :delete, :class => "button-clear" %>
+</div>
+</th>
+<th>
+<div id="add_button">
+<%= button_to 'Add to favorites', favorites_create_path(recipe_id: @recipe), method: :post, :class => "button-clear" %>
+</div>
+</th>
+<th>
+<div id="remove_button">
+<%= button_to 'Remove from favorites', favorites_destroy_path(recipe_id: @recipe), method: :delete, :class => "button-clear" %>
+</div>
+</th>
+</tr>
+</table>
 
 
-<%= button_to "Edit Recipe", edit_recipe_path(@recipe), :method => :get %>
-<%= button_to "Delete Recipe", recipe_path(@recipe), :method => :delete %>
-
-<%= button_to 'Add to favorites', favorites_create_path(recipe_id: @recipe), method: :post %>
-
-<%= button_to 'Remove from favorites', favorites_destroy_path(recipe_id: @recipe), method: :delete %>
 
 
 

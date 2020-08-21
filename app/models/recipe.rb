@@ -107,10 +107,9 @@ class Recipe < ApplicationRecord
     end
 
     def total_number_of_users
+        User.all.count
     end
 
-    def recipe_creator
-    end
 
     def most_favorited_style
     end
