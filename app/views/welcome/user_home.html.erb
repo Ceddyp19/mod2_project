@@ -6,6 +6,13 @@
   <%= link_to recipe.name, recipe_path(recipe) %>
 <% end %>
 <br><br>
+<h2>Favorites</h2>
+<ul>
+<% current_user.favorites.each do |fav| %>
+    <li>Name: <%= fav.recipe.name %> </li>
+    </ul>
+<% end %>
+<br><br>
 <%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
   <input type=submit value='logout'>
 <% end %>
