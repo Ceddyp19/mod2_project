@@ -28,6 +28,8 @@
 <br>
 <%= f.label :Dish_Style %>
 <%= f.collection_select :style_id, Style.all, :id, :name, prompt: true %><br>
+<%= f.label :Rating %>
+<%= f.text_field :rating %><br>
 <br>
 <%= f.label :Ingredients %>
 <%= f.fields_for :ingredients do |ingred|  %>

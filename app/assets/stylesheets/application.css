@@ -38,6 +38,9 @@
     transition: background .1s ease,box-shadow .1s ease,color .1s ease;
     transition: background .1s ease,box-shadow .1s ease,color .1s ease,-webkit-box-shadow .1s ease;
 }
+.answer{
+    display: none;
+      }
 
 .logo{
     position: relative;

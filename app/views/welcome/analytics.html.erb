@@ -1,0 +1,58 @@
+<h1>Analytics</h1>
+
+
+<h2>Averages</h2>
+
+<h4>Average Recipe Rating</h4>
+<p><%= Recipe.average_rating %> stars</p>
+
+<h4>Average Recipe Prep Time</h4>
+<p><%= Recipe.average_prep_time %> min</p>
+ 
+ <h4>Average Recipe Calories</h4>
+<p><%= Recipe.average_calories %> calories</p>
+
+<h2>Highlights</h2>
+
+<h4>Total Recipes</h4>
+<p><%=link_to Recipe.all_recipes, recipes_path %></p>
+
+<h4>Most Favorited Recipes</h4>
+
+<h4>Highest Rated Recipe </h4>
+
+<h2>Preferences</h2>
+
+<h4>Vegan recipes</h4>
+<ul>
+ <% Recipe.all_vegan_dishes.each do |vegan| %> 
+  
+    <li><%=link_to vegan, recipe_path(Recipe.where(name: vegan).ids) %></li> 
+    
+ <% end %>
+ </ul>
+
+ <h4>Vegetarian recipes</h4>
+<ul>
+ <% Recipe.all_vegetarian_dishes.each do |veggie| %> 
+    <li><%=link_to veggie, recipe_path(Recipe.where(name: veggie).ids) %></li>   
+ <% end %>
+ </ul>
+<h4> Recipes with rice</h4>
+<ul>
+ <% Ingredient.all_rice_dishes.each do |recipe| %> 
+    <li><%=link_to recipe.name, recipe_path(recipe) %></li>  
+ <% end %>
+</ul>
+<h4> Recipes with chicken</h4>
+<ul>
+ <% Ingredient.all_chicken_dishes.each do |recipe| %> 
+    <li><%=link_to recipe.name, recipe_path(recipe) %></li>  
+ <% end %>
+</ul>
+<h4> Recipes with pasta</h4>
+<ul>
+ <% Ingredient.all_pasta_dishes.each do |recipe| %> 
+    <li><%=link_to recipe.name, recipe_path(recipe) %></li>  
+ <% end %>
+</ul>

@@ -8,9 +8,13 @@ class Recipe < ApplicationRecord
     accepts_nested_attributes_for :ingredients, :allow_destroy => true
     
     validates :name, presence: true
-    validates :name, uniqueness: true
-    validates :style, presence: true 
+    validates :name, uniqueness: { case_sensitive: true }
+    validates :style, presence: { case_sensitive: true }
     validates :prep_time, presence:true
+    #validates :rating, numericality: { only_integer: true }
+    #validates_numericality_of :rating, less_than_or_equal_to: 10
+    before_validation :uppercase_name
+    # validates :prep_time, inclusion: {in: %w( min ), message: "Prep time must be in specified in minutes (min)" }
     validates :description, length: {minimum: 20}
     validates_associated :ingredients
 
@@ -42,6 +46,9 @@ class Recipe < ApplicationRecord
     end
     
 
+    def uppercase_name
+      name.upcase!
+    end
 
     def self.average_calories
         cal =   self.all.collect do |recipe|
@@ -50,39 +57,53 @@ class Recipe < ApplicationRecord
                 
         tc = cal.sum 
         tr = Recipe.all.count
-
-        ans = tc / total_recipes
+        ans = (tc / tr)
         ans
     end
 
     def self.average_rating
+        rat = self.all.collect do |recipe|
+                recipe.rating
+              end
+        
+        ar = rat.sum 
+        tr = Recipe.all.count
+        ans = (ar / tr)
+        ans
     end
 
     def self.average_prep_time
         prep = self.all.collect do |recipe|
-                    recipe.prep_time.split('min').to_i
+                    recipe.prep_time.split('min')
                 end
-        # prep.keep_if {|n| n =~ /[0..9]/}
-        byebug
-        prep = prep.collect
-        byebug
-        prep = prep.split("min")
-        byebug
-        tpt = prep.sum
-        ans = tpt / total_recipes
+                #prep looks like: [["35 "], ["90 "], ["40 "]] 
+        prep = prep.join.split
+               #now prep looks like: ["35", "90", "40"] 
 
-        # a.keep_if {|v| v =~ /[aeiou]/ }
+        prep.sum { |n| n.to_i } # turns each number to string then adds them together 
     end
 
-    def self.total_recipes
+    def self.all_recipes
         self.all.count 
     end
 
 
-    def all_vegan_dishes
+    def self.all_vegan_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 35 #Style.where(name: 'VEGAN').id
+                dish.name
+            end
+            
+        end.compact
     end
 
-    def count_favorited
+    def self.all_vegetarian_dishes
+        self.all.collect do |dish|
+            if dish.style_id == 36
+                dish.name
+            end
+            
+        end.compact
     end
 
     def total_number_of_users

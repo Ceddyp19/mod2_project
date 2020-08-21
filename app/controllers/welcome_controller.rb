@@ -9,5 +9,8 @@ class WelcomeController < ApplicationController
     def user_home
         @user = current_user
     end
+
+    def analytics
+    end
 end
 

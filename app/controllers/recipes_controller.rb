@@ -6,9 +6,6 @@ class RecipesController < ApplicationController
         @recipes = Recipe.all
     end 
 
-    # def showexit
-    # end
-
     def new
         @recipe = Recipe.new
         @recipe.ingredients.build
@@ -60,7 +57,7 @@ class RecipesController < ApplicationController
             end
             @recipe.ingredients.build
         elsif params[:remove_ingredient]
-            #byebug
+            
             removed_ingredients = []
             recipe_params[:ingredients_attributes].each { |i, att| removed_ingredients << att[:id] if (att[:id] && att[:_destroy].to_i == 1) }
             Ingredient.delete(removed_ingredients)
@@ -113,6 +110,7 @@ class RecipesController < ApplicationController
             :description, 
             :prep_time, 
             :style_id, 
+            :rating,
             :fave, 
             :add_ingredient, 
             :remove_ingredient, 

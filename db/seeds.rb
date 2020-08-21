@@ -5,38 +5,36 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+# require 'faker'
 
-# Recipe.create(name:'Krabby Patty Formula', calories: 500, prep_time: '35 min', description:'The best burgers in all of Bikini Bottom! Chum Bucket is trash..', style_id: 26 )
-# Recipe.create(name:'Spasagna', calories: 1200, prep_time: '90 min', description:'The best of both worlds!!', style_id: 18 )
-# Recipe.create(name:'Fried Rice', calories: 345, prep_time: '40 min', description:'A China town classic', style_id: 7 )
+# Recipe.destroy_all
+# Ingredient.destroy_all
 
+# 30.times do 
+# Recipe.create(name:Faker::Food.unique.dish, calories: rand(15..2000), prep_time: "#{rand(5..120)} min", description: Faker::Food.description, style_id:rand(1..39), rating:rand(1..10)  )
+# end
 
-# Ingredient.create(name: "Ground Krabs", category: "Seafood")
-# Ingredient.create(name: "Tomato", category: "Fruit")
-# Ingredient.create(name: "Rice", category: "Grain")
+# 50.times do 
+# Ingredient.create(name: Faker::Food.unique.ingredient)
+# end 
+# 75.times do 
+#     Ingredient.create(name: Faker::Food.unique.spice)
+# end 
+#Faker::Food.spice
 
 a = %w(African American Bakery Barbeque Brunch Cajun Chinese Cuban Dessert Ethiopian French German Greek Halal Hawaiian Indian Italian Jamaican Japanese Korean Kosher Latin Lebanese Mediterranean Mexican Mongolian Moroccan Peruvian Polish Seafood Southern Southwestern Spanish Thai Vegan Vegetarian Vietnamese)
 a.each do |s|
     Style.create(name: s)
 end
-# recipe:
-# t.string "name"
-#     t.integer "calories"
-#     t.string "prep_time"
-#     t.text "description"
-#     t.string "style"
 
-#     t.string "name"
-#     t.string "category"
-#     t.datetime "created_at", precision: 6, null: false
-#     t.datetime "updated_at", precision: 6, null: false
-#   end
+# 20.times do
+#     s = Style.find(rand(1..39))
+#     s.recipes << Recipe.find(rand(1..30))
+# end
 
-#   create_table "items", force: :cascade do |t|
-#     t.string "quantity"
-#     t.integer "recipe_id"
-#     t.integer "ingredient_id"
-#     t.datetime "created_at", precision: 6, null: false
-#     t.datetime "updated_at", precision: 6, null: false
-#   end
+# 28.times do
+#     r = Recipe.find(rand(1..28))
+#     r.ingredients << Ingredient.find(rand(1..50))
+# end
 
+#Faker::Food.measurement #=> "1/4 tablespoon"

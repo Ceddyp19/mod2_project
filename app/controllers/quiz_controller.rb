@@ -3,5 +3,11 @@ class QuizController < ApplicationController
     end
 
     def play
+        render :layout => 'quiz'
     end
+
+    def test
+        render :layout => 'quiz'
+    end
+
 end

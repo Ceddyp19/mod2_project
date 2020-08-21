@@ -40,6 +40,7 @@ ActiveRecord::Schema.define(version: 2020_08_21_004350) do
     t.string "prep_time"
     t.text "description"
     t.integer "style_id"
+    t.integer "rating"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
