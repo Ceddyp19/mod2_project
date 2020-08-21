@@ -13,6 +13,11 @@ class Recipe < ApplicationRecord
     validates :description, length: {minimum: 20}
     validates :rating, numericality: { only_integer: true }
     validates_numericality_of :rating, less_than_or_equal_to: 10
+    before_validation :uppercase_name
+
+    def uppercase_name
+      name.upcase!
+    end
 
     def self.average_calories
         cal =   self.all.collect do |recipe|
@@ -54,11 +59,8 @@ class Recipe < ApplicationRecord
 
     def self.all_vegan_dishes
         self.all.collect do |dish|
-            byebug
             if dish.style_id == Style.where(name: 'Vegan').ids
                 dish.name
-
-                byebug
             end
         end.compact
     end
@@ -70,34 +72,6 @@ class Recipe < ApplicationRecord
             end
         end.compact
     end
-
-    def self.all_rice_dishes
-        self.all.collect do |dish|
-            if dish.style_id == Style.where(name: 'Rice').ids
-                dish.name
-            end
-        end.compact
-        rice = Ingredient.find_by(name:'Rice')
-        rice_dishes = Item.where(ingredient_id: 3) #return all rice dishes
-    end
-
-    def self.all_chicken_dishes
-        self.all.collect do |dish|
-            if dish.style_id == Style.where(name: 'Chicken').ids
-                dish.name
-            end
-        end.compact
-    end
-
-    def self.all_pasta_dishes
-        self.all.collect do |dish|
-            if dish.style_id == 
-                dish.name
-            end
-        end.compact
-    end
-
-
 
     def total_number_of_users
     end

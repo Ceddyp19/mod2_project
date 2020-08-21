@@ -12,10 +12,15 @@
 
 <h4>Average Recipe Rating</h4>
 <p><%= Recipe.average_rating %> stars<p>
+
 <h4>Average Recipe Prep Time</h4>
 <p><%= Recipe.average_prep_time %> min<p>
+
 <h4>Average Recipe Calories</h4>
 <p><%= Recipe.average_calories %> calories<p>
+
+
+
 <h2>Highlights</h2>
 
 <h4>Total Recipes</h4>
@@ -35,30 +40,30 @@
     <li><%=link_to vegan, recipe_path(Recipe.where(name: vegan).ids) %></li>   
  <% end %>
  </ul>
+
 <h4>Vegetarian recipes</h4>
 <ul>
  <% Recipe.all_vegetarian_dishes.each do |veggie| %> 
     <li><%=link_to vegan, recipe_path(Recipe.where(name: veggie).ids) %></li>   
  <% end %>
  </ul>
+
 <h4> Recipes with rice</h4>
 <ul>
- <% Recipe.all_rice_dishes.each do |r| %> 
-    <li><%=link_to r, recipe_path(Recipe.where(name: r).ids) %></li>   
+ <% Item.all.each do |i| %> 
+    <li><%=link_to rice, recipe_path(Item.where(ingredient_id: Ingredient.find_by(name:'Rice').id ) %></li>  
  <% end %>
- </ul>
+</ul>
+
 <h4>Recipes with chicken</h4>
 <ul>
- <% Recipe.all_chicken_dishes.each do |c| %> 
-    <li><%=link_to vegan, recipe_path(Recipe.where(name: c).ids) %></li>   
- <% end %>
- </ul>
+    <li><%=link_to Ingredient.all_chicken_dishes, recipe_path(Item.where(ingredient_id: Ingredient.find_by(name:'Chicken').id ) %></li>  
+</ul>
+
 <h4>Recipes with pasta</h4>
 <ul>
- <% Recipe.all_chicken_dishes.each do |c| %> 
-    <li><%=link_to vegan, recipe_path(Recipe.where(name: c).ids) %></li>   
- <% end %>
- </ul>
+    <li><%=link_to Ingredient.all_pasta_dishes, recipe_path(Item.where(ingredient_id: Ingredient.find_by(name:'Chicken').id ) %></li>  
+</ul>
 
 
 
