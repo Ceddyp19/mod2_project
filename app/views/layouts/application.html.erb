@@ -7,24 +7,48 @@
 
     <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <!-- Google Fonts -->
+   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300italic,700,700italic">
+
+   <!-- CSS Reset -->
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css">
+
+   <!-- Milligram CSS -->
+  <!--<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/milligram/1.4.1/milligram.css">-->
+
+    
   </head>
 
   <body>
   <div align="center">
+  <nav>
+  <div class="home">
+
   
-  <a class="menu" id="menu-link" href="/">
+  <%= link_to image_tag("crecipe_logo_small_2.png") , "/" %>
   
-  Home
-  </a>
+  </div>
 
 
+  
+  <% if logged_in? %>
   <a class="menu" id="menu-link" href="/recipes">
    
-  Recipes
+  All Recipes
   </a>
-  <% if !logged_in? %>
-  <a class="menu" id="menu-link" href="/login">
+  <a class="menu" id="menu-link" href="/user_home">
+  My Recipes
+  </a>
+  <a class="menu" id="menu-link" href="/about">
+  About
+  </a>
+<a class="menu" id="menu-link" href="/quiz">
 
+  Quiz
+  </a>
+  
+<% else %>
+<a class="menu" id="menu-link" href="/login">
   Login
   </a>
  
@@ -33,20 +57,25 @@
   Sign Up
   </a>
    <% end %>
-   <a class="menu" id="menu-link" href="/user_home">
-  My Recipes
-  </a>
-  <a class="menu" id="menu-link" href="about">
-  About
-  </a>
-<a class="menu" id="menu-link" href="/quiz">
-
-  Quiz
-  </a>
+   
   </div>
   <% flash.each do |key, value| %>
     <div class="flash <%= key %>"><%= value %></div>
 <% end %>
+</nav>
     <%= yield %>
   </body>
+  <footer>
+  <div align="left" style="padding-top: 50px;">
+  <% if logged_in? %>
+  You are currently logged in as <%= current_user.email %>
+  
+  <br>
+  
+  <%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
+  <input type=submit value='logout'>
+<% end %>
+<% end %>
+  </div>
+  </footer>
 </html>

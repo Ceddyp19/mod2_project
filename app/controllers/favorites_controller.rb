@@ -11,7 +11,7 @@ class FavoritesController < ApplicationController
     else
       Favorite.create(recipe: @recipe, user: current_user)
 
-      redirect_to '/user_home', notice: 'recipe has been favorited' #and return
+      redirect_to '/user_home' #notice: 'recipe has been favorited' #and return
     end
     
     

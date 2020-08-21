@@ -15,7 +15,7 @@
 # Ingredient.create(name: "Tomato", category: "Fruit")
 # Ingredient.create(name: "Rice", category: "Grain")
 
-a = %w(African American Bakery Barbeque Brunch Cajun Chinese Cuban Dessert Ethiopian Fast Food German Greek Halal Hawaiian Indian Italian Jamaican Japanese Korean Kosher Latin Lebanese Mediterranean Mexican Mongolian Moroccan Peruvian Polish Seafood Southern Southwestern Spanish Thai Vegan Vegetarian Vietnamese)
+a = %w(African American Bakery Barbeque Brunch Cajun Chinese Cuban Dessert Ethiopian French German Greek Halal Hawaiian Indian Italian Jamaican Japanese Korean Kosher Latin Lebanese Mediterranean Mexican Mongolian Moroccan Peruvian Polish Seafood Southern Southwestern Spanish Thai Vegan Vegetarian Vietnamese)
 a.each do |s|
     Style.create(name: s)
 end

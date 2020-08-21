@@ -1,7 +1,29 @@
-<h1>Welcome!</h1>
-<h3>You are currently logged in as <%= @user.email %></h3>
-<br><br>
-<h2>My Recipes</h2>
+
+<div class="center" align="center" style="padding: 50px;">
+<table style="text-align: center;">
+  <tr>
+    <th><h3>My Recipes</h3></th>
+    <th><h3>Favorites</h3></th>
+  </tr>
+  <tr>
+    <td>
+    <dl>
+    <% @user.recipes.each do |recipe| %>
+      <li><%= link_to recipe.name, recipe_path(recipe) %></li>
+    <% end %>
+    </dl>
+    </td>
+    <td>
+      <dl>
+        <% current_user.favorites.each do |fav| %>
+          <li><%= link_to fav.recipe.name, recipe_path(fav.recipe) %> </li>
+        <% end %>
+      </dl>
+    </td>
+  </tr>
+  </table>
+</div>
+<!--<h2>My Recipes</h2>
 <% @user.recipes.each do |recipe| %>
   <%= link_to recipe.name, recipe_path(recipe) %>
 <% end %>
@@ -12,7 +34,8 @@
     <li>Name: <%= fav.recipe.name %> </li>
     </ul>
 <% end %>
+</table>
 <br><br>
 <%= form_tag ({controller: 'sessions', action: 'destroy', method: 'post'}) do %>
   <input type=submit value='logout'>
-<% end %>
+<% end %>-->
