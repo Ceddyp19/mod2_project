@@ -13,7 +13,10 @@ end
 50 times do 
 Ingredient.create(name: Faker::Food.unique.ingredient)
 end 
-
+75 times do 
+    Ingredient.create(name: Faker::Food.unique.spice)
+end 
+Faker::Food.spice
 
 a = %w(African American Bakery Barbeque Brunch Cajun Chinese Cuban Dessert Ethiopian Fast Food German Greek Halal Hawaiian Indian Italian Jamaican Japanese Korean Kosher Latin American Lebanese Mediterranean Mexican Mongolian Moroccan Peruvian Polish Seafood Southern Southwestern Spanish Thai Vegan Vegetarian Vietnamese)
 a.each do |s|
@@ -25,7 +28,9 @@ end
     s.recipes << Recipe.find(rand(1..30))
 end
 
-100 times do
+200 times do
     r = Recipe.find(rand(1..30))
     r.ingredients << Ingredient.find(rand(1..50))
 end
+
+#Faker::Food.measurement #=> "1/4 tablespoon"
