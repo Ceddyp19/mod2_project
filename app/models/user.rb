@@ -1,9 +1,7 @@
 class User < ApplicationRecord
     has_many :recipes_users
     has_many :recipes, through: :recipes_users
-    has_many :favorite_recipes
-    has_many :recipes, through: :favorite_recipes
-    has_many :fav_recipes, through: :favorite_recipes, source: :recipe
+    has_many :favorites
     has_secure_password
     validate :password
     # validates :password_digest, length:{ minimum: 8 }

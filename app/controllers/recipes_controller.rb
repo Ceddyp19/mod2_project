@@ -79,18 +79,18 @@ class RecipesController < ApplicationController
         render :edit       
     end
 
-    def favorite 
-        fave = params[:fave]
-        if fave == "favorite"
-            current_user.fav_recipes << @recipe
-            flash[:notice] = "Added to favorites!"
-            redirect_to recipe_path(@recipe)
-        elsif fave == "unfavorite"
-            current_user.fav_recipes.delete(@recipe)
-            flash[:notice] = "Removed from favorites"
-            redirect_to recipe_path(@recipe)
-        end
-    end
+    # def favorite 
+    #     fave = params[:fave]
+    #     if fave == "favorite"
+    #         current_user.fav_recipes << @recipe
+    #         flash[:notice] = "Added to favorites!"
+    #         redirect_to recipe_path(@recipe)
+    #     elsif fave == "unfavorite"
+    #         current_user.fav_recipes.delete(@recipe)
+    #         flash[:notice] = "Removed from favorites"
+    #         redirect_to recipe_path(@recipe)
+    #     end
+    # end
 
     def show
     end 

@@ -11,16 +11,12 @@
 
   <body>
   <div align="center">
-  <% if logged_in? %>
-  <a class="menu" id="menu-link" href="/user_home">
-  Home
-  </a>
-  <% else %>
+  
   <a class="menu" id="menu-link" href="/">
   
   Home
   </a>
-<% end %>
+
 
   <a class="menu" id="menu-link" href="/recipes">
    
@@ -37,6 +33,16 @@
   Sign Up
   </a>
    <% end %>
+   <a class="menu" id="menu-link" href="/user_home">
+  My Recipes
+  </a>
+  <a class="menu" id="menu-link" href="about">
+  About
+  </a>
+<a class="menu" id="menu-link" href="/quiz">
+
+  Quiz
+  </a>
   </div>
   <% flash.each do |key, value| %>
     <div class="flash <%= key %>"><%= value %></div>

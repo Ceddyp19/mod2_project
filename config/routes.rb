@@ -2,9 +2,9 @@ Rails.application.routes.draw do
   resources :recipes
   resources :sessions, only: [:new, :create]
   resources :users
-  resources :recipes do
-    put :favorite, on: :member
-  end
+  # resources :recipes do
+  #   put :favorite, on: :member
+  # end
   
   get '/user_home', to: 'welcome#user_home'
 
