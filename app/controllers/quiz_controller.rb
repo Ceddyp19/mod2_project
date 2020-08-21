@@ -6,8 +6,8 @@ class QuizController < ApplicationController
         render :layout => 'quiz'
     end
 
-    def test
-        render :layout => 'quiz'
-    end
+    # def test
+    #     render :layout => 'quiz'
+    # end
 
 end
